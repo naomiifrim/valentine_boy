@@ -1,102 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Have a Question...</title>
+    <title>Valentine Quest</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #fff0f3;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
+        body { 
+            margin: 0; 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background-color: #0d0d0d; 
+            color: #00ffcc; 
+            font-family: 'Courier New', monospace; 
             overflow: hidden;
         }
-
         #container {
-            background: white;
-            padding: 2rem;
+            text-align: center;
+            background: #1a1a1a;
+            padding: 25px;
+            border: 3px solid #00ffcc;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 20px #00ffcc;
+            width: 320px;
+            position: relative;
         }
-
-        h1 { color: #ff4d6d; margin-bottom: 20px; }
-
-        .gif-container img {
-            width: 250px;
-            border-radius: 15px;
+        .gif-box {
+            width: 100%;
+            height: 200px;
             margin-bottom: 20px;
-        }
-
-        .buttons {
             display: flex;
-            gap: 20px;
             justify-content: center;
-            align-items: center;
-            height: 50px;
         }
-
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 2px solid #ff4d6d;
+        }
+        .btns {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px;
+            margin-top: 20px;
+        }
         button {
             padding: 12px 25px;
-            font-size: 1.1rem;
             font-weight: bold;
-            border: none;
-            border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            text-transform: uppercase;
         }
-
-        #yesBtn { background-color: #4cc9f0; color: white; }
-        #yesBtn:hover { transform: scale(1.1); background-color: #4895ef; }
-
-        #noBtn {
-            background-color: #ff4d6d;
-            color: white;
-            position: relative;
+        #yesBtn { background: #00ffcc; color: #000; box-shadow: 0 0 10px #00ffcc; }
+        #noBtn { 
+            background: #ff4d6d; 
+            color: #fff; 
+            position: fixed; /* Questo lo fa muovere ovunque sullo schermo */
+            z-index: 999;
         }
     </style>
 </head>
 <body>
 
     <div id="container">
-        <div class="gif-container">
-            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIwdW9qZmszdXp1amF4M3Z6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Puppy eyes">
+        <div class="gif-box">
+            <img id="mainGif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHU4amZ4dzZwdW9qZmszdXp1amF4M3Z6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/GeimqsH0TLHC4mSJJ2/giphy.webp" alt="Cat with rose">
         </div>
-        <h1 id="question">Will you be my Valentine?</h1>
-        <div class="buttons">
-            <button id="yesBtn" onclick="celebrate()">Yes!</button>
-            <button id="noBtn" onmouseover="moveButton()">No</button>
+        <h1 id="headerText">Will you be my Valentine?</h1>
+        <div class="btns">
+            <button id="yesBtn" onclick="celebrate()">YES</button>
+            <button id="noBtn" onmouseover="flee()" ontouchstart="flee()">NO</button>
         </div>
     </div>
 
     <script>
-        function moveButton() {
-            const noBtn = document.getElementById('noBtn');
-            // Calculate random positions within the visible window
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        // Funzione per far scappare il tasto
+        function flee() {
+            const btn = document.getElementById('noBtn');
+            // Calcola una posizione sicura nello schermo
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
-            noBtn.style.position = "absolute";
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
         }
 
+        // Funzione per la vittoria
         function celebrate() {
             const gif = document.getElementById('mainGif');
-            const question = document.getElementById('question');
-            const buttons = document.querySelector('.buttons');
+            const text = document.getElementById('headerText');
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+
+            // GIF GATTO CHE SALTA
+            gif.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExczJ6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/H76495N7S5mB8O7H5R/giphy.webp";
+            text.innerHTML = "MISSION ACCOMPLISHED! ❤️<br><span style='font-size:0.8rem; color:#ff4d6d'>See you on the 14th!</span>";
             
-            // Change to celebratory GIF
-            gif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHNidmZ0bmRreWp4Z3p6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/lT6UfXvOPlC6L6zG0S/giphy.gif";
-            question.innerText = "Yay! See you on the 14th! ❤️";
-            buttons.style.display = "none";
+            noBtn.style.display = "none";
+            yesBtn.style.display = "none";
+            document.getElementById('container').style.borderColor = "#ff4d6d";
         }
+
+        // Posiziona il tasto NO inizialmente vicino al YES
+        window.onload = () => {
+            const btn = document.getElementById('noBtn');
+            btn.style.left = '55%'; 
+            btn.style.top = '50%';
+        };
     </script>
 </body>
 </html>
