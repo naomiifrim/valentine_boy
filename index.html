@@ -1,53 +1,101 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Quest</title>
+    <title>I Have a Question...</title>
     <style>
-        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: #0a0a0a; color: #00ffcc; font-family: 'Courier New', monospace; overflow: hidden; }
-        #box { text-align: center; background: #151515; padding: 30px; border: 4px solid #00ffcc; border-radius: 20px; width: 320px; position: relative; transition: 0.3s; }
-        img { width: 250px; height: 250px; border-radius: 15px; border: 3px solid #ff4d6d; object-fit: cover; margin-bottom: 15px; }
-        h1 { font-size: 1.2rem; text-transform: uppercase; margin-bottom: 20px; }
-        .btns { display: flex; justify-content: center; gap: 20px; height: 50px; }
-        button { padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; font-family: inherit; }
-        #yesBtn { background: #00ffcc; color: #000; box-shadow: 0 0 10px #00ffcc; }
-        #noBtn { background: #ff4d6d; color: #fff; position: absolute; transition: 0.1s ease; }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        h1 { color: #ff4d6d; margin-bottom: 20px; }
+
+        .gif-container img {
+            width: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn { background-color: #4cc9f0; color: white; }
+        #yesBtn:hover { transform: scale(1.1); background-color: #4895ef; }
+
+        #noBtn {
+            background-color: #ff4d6d;
+            color: white;
+            position: relative;
+        }
     </style>
 </head>
 <body>
 
-    <div id="box">
-        <img id="mainGif" src="https://media.giphy.com/media/GeimqsH0TLHC4mSJJ2/giphy.gif" alt="Cat with Rose">
-        <h1 id="headerText">Will you be my Valentine?</h1>
-        <div class="btns">
-            <button id="yesBtn" onclick="celebrate()">YES</button>
-            <button id="noBtn" onmouseover="flee()" onclick="flee()">NO</button>
+    <div id="container">
+        <div class="gif-container">
+            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIwdW9qZmszdXp1amF4M3Z6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Puppy eyes">
+        </div>
+        <h1 id="question">Will you be my Valentine?</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes!</button>
+            <button id="noBtn" onmouseover="moveButton()">No</button>
         </div>
     </div>
 
     <script>
-        function flee() {
-            const btn = document.getElementById('noBtn');
-            // Calcola posizioni casuali restando visibile nello schermo
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            // Calculate random positions within the visible window
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = "absolute";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
         }
 
         function celebrate() {
             const gif = document.getElementById('mainGif');
-            const text = document.getElementById('headerText');
-            const btns = document.querySelector('.btns');
-            const box = document.getElementById('box');
-
-            // GIF 2: Gatto che salta
-            gif.src = "https://media.giphy.com/media/H76495N7S5mB8O7H5R/giphy.gif";
-            text.innerHTML = "MISSION ACCOMPLISHED! ❤️<br><span style='font-size:0.8rem; color:#ff4d6d'>See you on the 14th!</span>";
-            btns.style.display = "none";
-            box.style.borderColor = "#ff4d6d";
-            box.style.boxShadow = "0 0 30px #ff4d6d";
+            const question = document.getElementById('question');
+            const buttons = document.querySelector('.buttons');
+            
+            // Change to celebratory GIF
+            gif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHNidmZ0bmRreWp4Z3p6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/lT6UfXvOPlC6L6zG0S/giphy.gif";
+            question.innerText = "Yay! See you on the 14th! ❤️";
+            buttons.style.display = "none";
         }
     </script>
 </body>
