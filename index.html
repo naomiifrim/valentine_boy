@@ -3,66 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Tua Quest di San Valentino, Valerio!</title>
+    <title>Valentine Quest per Valerio</title>
     <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #1a0a1a; /* Viola scuro */
-            font-family: 'Press Start 2P', cursive; /* Stile pixel art per il gaming */
-            color: #ff99cc; /* Rosa acceso */
-            overflow: hidden;
-            text-shadow: 2px 2px #cc0066; /* Ombra per il testo */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect width="10" height="10" fill="transparent"/><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="%232c0c2c" opacity="0.5"/></svg>'); /* Sfondo con piccoli pixel diamond */
-            background-size: 20px 20px;
+        body { 
+            margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; 
+            background-color: #0d0d0d; color: #ff4d6d; font-family: 'Courier New', monospace; overflow: hidden; 
+        }
+        #container {
+            text-align: center; background: #1a1a1a; padding: 40px; border: 4px solid #ff4d6d; 
+            border-radius: 20px; box-shadow: 0 0 20px #ff4d6d; width: 320px; position: relative;
+        }
+        /* Al posto della GIF usiamo un'emoji animata */
+        .emoji-box { font-size: 80px; margin-bottom: 20px; display: block; animation: float 2s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        
+        h1 { font-size: 1.2rem; text-transform: uppercase; margin-bottom: 30px; line-height: 1.5; }
+        .btns { display: flex; justify-content: center; gap: 40px; height: 50px; }
+        button { padding: 12px 25px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; font-family: inherit; }
+        #yesBtn { background: #ff4d6d; color: white; box-shadow: 0 0 10px #ff4d6d; }
+        #noBtn { background: #444; color: #eee; position: fixed; z-index: 999; }
+        
+        .hidden { display: none; }
+        .celebrate-emoji { font-size: 100px; animation: heartBeat 1s infinite; }
+        @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="quiz">
+            <div class="emoji-box">🐱🌹</div>
+            <h1>Hey Valerio,<br>Will you be my Valentine?</h1>
+            <div class="btns">
+                <button id="yesBtn" onclick="victory()">YES</button>
+                <button id="noBtn" onmouseover="flee()" onclick="flee()">NO</button>
+            </div>
+        </div>
+
+        <div id="result" class="hidden">
+            <div class="celebrate-emoji">💖</div>
+            <h1>MISSION ACCOMPLISHED!</h1>
+            <p style="color: #fff;">Ti aspetto il 14, Valerio! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        function flee() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
         }
 
-        #game-container {
-            background: rgba(40, 0, 40, 0.95); /* Box più scuro */
-            padding: 30px;
-            border: 4px solid #ff0077; /* Bordo rosso brillante */
-            border-radius: 20px;
-            box-shadow: 0 0 30px #ff0077, inset 0 0 15px #ff0077; /* Doppio bagliore */
-            text-align: center;
-            max-width: 420px;
-            width: 90%;
-            position: relative;
-            animation: pulse 2s infinite alternate; /* Effetto pulsazione */
+        function victory() {
+            document.getElementById('quiz').classList.add('hidden');
+            document.getElementById('noBtn').style.display = 'none';
+            document.getElementById('result').classList.remove('hidden');
+            document.getElementById('container').style.boxShadow = "0 0 40px #ff4d6d";
         }
 
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.02); }
-        }
-
-        .valentine-gif {
-            width: 250px;
-            height: 250px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            object-fit: contain;
-            border: 3px solid #ff99cc; /* Bordo rosa */
-            background-color: #000;
-        }
-
-        h1 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 35px;
-            line-height: 1.4;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            height: 60px;
-            position: relative; /* Per posizionare i bottoni */
-        }
-
-        button {
-            padding: 12px 28px;
+        // Posizione iniziale NO
+        window.onload = () => {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const rect = yesBtn.getBoundingClientRect();
+            noBtn.style.left = (rect.right + 30) + "px";
+            noBtn.style.top = rect.top + "px";
+        };
+    </script>
+</body>
+</html>
