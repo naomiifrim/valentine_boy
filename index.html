@@ -19,31 +19,27 @@
         #container {
             text-align: center;
             background: #1a1a1a;
-            padding: 25px;
+            padding: 30px;
             border: 3px solid #00ffcc;
             border-radius: 20px;
             box-shadow: 0 0 20px #00ffcc;
             width: 320px;
-            position: relative;
+            z-index: 1;
         }
-        .gif-box {
-            width: 100%;
-            height: 200px;
+        .gif-box img {
+            width: 250px;
+            height: 250px;
+            border-radius: 15px;
+            border: 3px solid #ff4d6d;
+            object-fit: cover;
             margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-            border: 2px solid #ff4d6d;
         }
         .btns {
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 60px;
+            justify-content: center;
+            gap: 20px;
             margin-top: 20px;
+            height: 50px;
         }
         button {
             padding: 12px 25px;
@@ -53,13 +49,21 @@
             border: none;
             font-family: inherit;
             text-transform: uppercase;
+            font-size: 1rem;
         }
-        #yesBtn { background: #00ffcc; color: #000; box-shadow: 0 0 10px #00ffcc; }
+        #yesBtn { 
+            background: #00ffcc; 
+            color: #000; 
+            box-shadow: 0 0 10px #00ffcc;
+            position: relative;
+            z-index: 2;
+        }
         #noBtn { 
             background: #ff4d6d; 
             color: #fff; 
-            position: fixed; /* Questo lo fa muovere ovunque sullo schermo */
-            z-index: 999;
+            position: absolute; /* Fondamentale per farlo scappare */
+            z-index: 3;
+            transition: 0.1s;
         }
     </style>
 </head>
@@ -67,20 +71,19 @@
 
     <div id="container">
         <div class="gif-box">
-            <img id="mainGif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHU4amZ4dzZwdW9qZmszdXp1amF4M3Z6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/GeimqsH0TLHC4mSJJ2/giphy.webp" alt="Cat with rose">
+            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHU4amZ4dzZwdW9qZmszdXp1amF4M3Z6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/GeimqsH0TLHC4mSJJ2/giphy.gif" alt="Cat with rose">
         </div>
         <h1 id="headerText">Will you be my Valentine?</h1>
         <div class="btns">
             <button id="yesBtn" onclick="celebrate()">YES</button>
-            <button id="noBtn" onmouseover="flee()" ontouchstart="flee()">NO</button>
+            <button id="noBtn" onmouseover="flee()" onclick="flee()">NO</button>
         </div>
     </div>
 
     <script>
-        // Funzione per far scappare il tasto
         function flee() {
             const btn = document.getElementById('noBtn');
-            // Calcola una posizione sicura nello schermo
+            // Calcola posizioni casuali
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
@@ -88,28 +91,34 @@
             btn.style.top = y + 'px';
         }
 
-        // Funzione per la vittoria
         function celebrate() {
             const gif = document.getElementById('mainGif');
             const text = document.getElementById('headerText');
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
+            const container = document.getElementById('container');
 
-            // GIF GATTO CHE SALTA
-            gif.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExczJ6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/H76495N7S5mB8O7H5R/giphy.webp";
+            // Cambio alla GIF felice
+            gif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExczJ6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/H76495N7S5mB8O7H5R/giphy.gif";
             text.innerHTML = "MISSION ACCOMPLISHED! ❤️<br><span style='font-size:0.8rem; color:#ff4d6d'>See you on the 14th!</span>";
             
             noBtn.style.display = "none";
             yesBtn.style.display = "none";
-            document.getElementById('container').style.borderColor = "#ff4d6d";
+            container.style.borderColor = "#ff4d6d";
+            container.style.boxShadow = "0 0 40px #ff4d6d";
         }
 
-        // Posiziona il tasto NO inizialmente vicino al YES
+        // Posizione iniziale corretta del tasto NO
         window.onload = () => {
-            const btn = document.getElementById('noBtn');
-            btn.style.left = '55%'; 
-            btn.style.top = '50%';
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const rect = yesBtn.getBoundingClientRect();
+            
+            // Mette il NO a destra del YES all'inizio
+            noBtn.style.left = (rect.right + 20) + 'px';
+            noBtn.style.top = rect.top + 'px';
         };
     </script>
 </body>
 </html>
+
