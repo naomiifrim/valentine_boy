@@ -3,38 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Per Valerio</title>
+    <title>Gattini per Valerio</title>
     <style>
-        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: #0d0d0d; color: #ff4d6d; font-family: sans-serif; overflow: hidden; }
-        #box { text-align: center; background: #1a1a1a; padding: 30px; border: 3px solid #ff4d6d; border-radius: 20px; width: 300px; position: relative; box-shadow: 0 0 20px #ff4d6d; }
-        .heart { font-size: 50px; margin-bottom: 10px; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-        h1 { font-size: 1.2rem; margin-bottom: 30px; }
-        .btns { display: flex; justify-content: center; gap: 30px; height: 50px; }
-        button { padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; }
-        #y { background: #00ffcc; color: #000; }
+        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: #0d0d0d; color: #ff4d6d; font-family: 'Courier New', Courier, monospace; overflow: hidden; }
+        #box { text-align: center; background: #1a1a1a; padding: 30px; border: 3px solid #ff4d6d; border-radius: 20px; width: 320px; position: relative; box-shadow: 0 0 20px #ff4d6d; }
+        img { width: 100%; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ff4d6d; min-height: 200px; background: #000; }
+        h1 { font-size: 1.2rem; margin-bottom: 30px; text-transform: uppercase; }
+        .btns { display: flex; justify-content: center; gap: 40px; height: 50px; }
+        button { padding: 12px 25px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; font-family: inherit; }
+        #y { background: #00ffcc; color: #000; box-shadow: 0 0 10px #00ffcc; }
         #n { background: #ff4d6d; color: #fff; position: fixed; z-index: 999; }
-        .hidden { display: none; }
     </style>
 </head>
 <body>
-
     <div id="box">
         <div id="q">
-            <div class="heart">❤️</div>
+            <img id="m" src="https://media.tenor.com/S7Y_G77Ag7IAAAAC/cat-flower.gif" alt="Cat with flower">
             <h1>Valerio, vuoi essere il mio Valentino?</h1>
             <div class="btns">
                 <button id="y" onclick="ok()">SÌ</button>
                 <button id="n" onmouseover="f()" onclick="f()">NO</button>
             </div>
         </div>
-        <div id="r" class="hidden">
-            <div class="heart">💖</div>
-            <h1>GRANDE VALERIO! ❤️</h1>
-            <p>Missione Compiuta!</p>
+        <div id="r" style="display:none">
+            <img src="https://media.tenor.com/Z4O8V0o29mAAAAAC/cat-jumping.gif" alt="Happy cat">
+            <h1>MISSIONE COMPIUTA! ❤️</h1>
+            <p>Ci vediamo il 14, Valerio!</p>
         </div>
     </div>
-
     <script>
         function f() {
             const b = document.getElementById('n');
@@ -44,9 +40,11 @@
             b.style.top = y + 'px';
         }
         function ok() {
-            document.getElementById('q').classList.add('hidden');
+            document.getElementById('q').style.display = 'none';
             document.getElementById('n').style.display = 'none';
-            document.getElementById('r').classList.remove('hidden');
+            document.getElementById('r').style.display = 'block';
+            document.getElementById('box').style.borderColor = '#00ffcc';
+            document.getElementById('box').style.boxShadow = '0 0 30px #00ffcc';
         }
         window.onload = () => {
             const n = document.getElementById('n');
@@ -57,4 +55,3 @@
         };
     </script>
 </body>
-</html>
