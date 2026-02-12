@@ -3,55 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gattini per Valerio</title>
+    <title>Per Valerio ❤️</title>
     <style>
-        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: #0d0d0d; color: #ff4d6d; font-family: 'Courier New', Courier, monospace; overflow: hidden; }
-        #box { text-align: center; background: #1a1a1a; padding: 30px; border: 3px solid #ff4d6d; border-radius: 20px; width: 320px; position: relative; box-shadow: 0 0 20px #ff4d6d; }
-        img { width: 100%; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ff4d6d; min-height: 200px; background: #000; }
-        h1 { font-size: 1.2rem; margin-bottom: 30px; text-transform: uppercase; }
+        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: #0d0d0d; color: #ff4d6d; font-family: 'Courier New', monospace; overflow: hidden; }
+        #box { text-align: center; background: #1a1a1a; padding: 40px; border: 4px solid #ff4d6d; border-radius: 20px; width: 320px; position: relative; box-shadow: 0 0 20px #ff4d6d; z-index: 10; }
+        
+        /* Gattini fatti con le Emoji (Infallibili) */
+        .cat-emoji { font-size: 80px; display: block; margin-bottom: 20px; animation: float 2s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-15px) rotate(5deg); } }
+        
+        h1 { font-size: 1.2rem; margin-bottom: 30px; line-height: 1.5; text-transform: uppercase; }
         .btns { display: flex; justify-content: center; gap: 40px; height: 50px; }
-        button { padding: 12px 25px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; font-family: inherit; }
+        button { padding: 12px 25px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; font-family: inherit; font-size: 1rem; }
+        
         #y { background: #00ffcc; color: #000; box-shadow: 0 0 10px #00ffcc; }
         #n { background: #ff4d6d; color: #fff; position: fixed; z-index: 999; }
+
+        /* Effetto vittoria */
+        .hidden { display: none; }
+        .hearts-rain { position: absolute; top: -100px; animation: fall 3s linear forwards; font-size: 24px; }
+        @keyframes fall { to { transform: translateY(110vh); } }
     </style>
 </head>
 <body>
+
     <div id="box">
         <div id="q">
-            <img id="m" src="https://media.tenor.com/S7Y_G77Ag7IAAAAC/cat-flower.gif" alt="Cat with flower">
+            <div class="cat-emoji">🐱🌹</div>
             <h1>Valerio, vuoi essere il mio Valentino?</h1>
             <div class="btns">
-                <button id="y" onclick="ok()">SÌ</button>
-                <button id="n" onmouseover="f()" onclick="f()">NO</button>
+                <button id="y" onclick="victory()">SÌ</button>
+                <button id="n" onmouseover="flee()" onclick="flee()">NO</button>
             </div>
         </div>
-        <div id="r" style="display:none">
-            <img src="https://media.tenor.com/Z4O8V0o29mAAAAAC/cat-jumping.gif" alt="Happy cat">
-            <h1>MISSIONE COMPIUTA! ❤️</h1>
-            <p>Ci vediamo il 14, Valerio!</p>
+
+        <div id="r" class="hidden">
+            <div class="cat-emoji">😻✨</div>
+            <h1>GRANDE VALERIO! ❤️</h1>
+            <p style="color: #fff;">Ci vediamo il 14!</p>
         </div>
     </div>
+
     <script>
-        function f() {
+        function flee() {
             const b = document.getElementById('n');
             const x = Math.random() * (window.innerWidth - b.offsetWidth);
             const y = Math.random() * (window.innerHeight - b.offsetHeight);
             b.style.left = x + 'px';
             b.style.top = y + 'px';
         }
-        function ok() {
-            document.getElementById('q').style.display = 'none';
+
+        function victory() {
+            document.getElementById('q').classList.add('hidden');
             document.getElementById('n').style.display = 'none';
-            document.getElementById('r').style.display = 'block';
-            document.getElementById('box').style.borderColor = '#00ffcc';
-            document.getElementById('box').style.boxShadow = '0 0 30px #00ffcc';
+            document.getElementById('r').classList.remove('hidden');
+            document.getElementById('box').style.borderColor = "#00ffcc";
+            
+            // Pioggia di cuori
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.className = 'hearts-rain';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(heart);
+                }, i * 100);
+            }
         }
+
         window.onload = () => {
             const n = document.getElementById('n');
             const y = document.getElementById('y');
-            const r = y.getBoundingClientRect();
-            n.style.left = (r.right + 20) + 'px';
-            n.style.top = r.top + 'px';
+            const rect = y.getBoundingClientRect();
+            n.style.left = (rect.right + 30) + "px";
+            n.style.top = rect.top + "px";
         };
     </script>
 </body>
+</html>
